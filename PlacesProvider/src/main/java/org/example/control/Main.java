@@ -6,6 +6,6 @@ public class Main {
         FoursquareProvider myProvider = new FoursquareProvider(apiKey);
         ActiveMQSender mySender = new ActiveMQSender("prediction.Places", "tcp://localhost:61616");
         PlacesController controller = new PlacesController(mySender, myProvider);
-        controller.Task();
+        controller.runTask();
     }
 }

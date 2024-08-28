@@ -5,6 +5,8 @@ import org.example.model.Place;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class PlacesController {
@@ -21,21 +23,31 @@ public class PlacesController {
     }
 
     public void Task() {
-        System.out.println("Doing the task...");
-        List<Location> locationsList = initializeLocations();
-        List<List<Place>> iPlaces = new ArrayList<>();
+        Timer timer = new Timer();
 
-        for (int i = 0; i < 8; i++) {
-            iPlaces.add(provider.getPlaces(locationsList.get(i)));
-        }
+        TimerTask task = new TimerTask() {
 
-        for (List<Place> places : iPlaces) {
-            for (Place place : places) {
-                store.save(place);
-                System.out.println(place.toString());
+            @Override
+            public void run() {
+
+                System.out.print("Doing the task...");
+                List<Location> locationsList = initializeLocations();
+                List<List<Place>> iPlaces = new ArrayList<>();
+
+                for (int i = 0; i < 8; i++) {
+                    iPlaces.add(provider.getPlaces(locationsList.get(i)));
+                }
+
+                for (List<Place> places : iPlaces) {
+                    for (Place place : places) {
+                        store.save(place);
+                        System.out.println(place.toString());
+                    }
+                }
+                System.out.println("The messages have been sent.");
             }
-        }
-        System.out.println("The messages have been sent.");
+        };
+        timer.schedule(task, 0, 1000*6*3600);
     }
 
     public List<Location> initializeLocations() {

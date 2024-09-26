@@ -32,7 +32,6 @@ public class ActiveMQSender implements PlacesStore {
         } catch (JMSException error){
             throw new RuntimeException(error);
         }
-
     }
 
     public String placeToJson(Place place){

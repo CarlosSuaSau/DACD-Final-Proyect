@@ -39,5 +39,4 @@ public class ActiveMQSender implements PlacesStore {
         String jsonString = gson.toJson(place);
         return jsonString;
     }
-
 }
